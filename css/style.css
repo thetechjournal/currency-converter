@@ -1,0 +1,72 @@
+body {
+	text-align: center;
+    font-family: sans-serif;
+    font-size: 20px;
+    background-color:lightgray;
+    color: brown;
+}
+
+h1 {
+    padding-top: 100px;
+    font-size: 40px;
+    color: brown;
+    
+}
+
+.bg-image {
+    background-image: url("../images/gear-currency-bg-1.jpg");
+    margin-top: 100px;
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+input, select {
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+input {
+	width: 100px;
+	height: 21px;
+	font-size: 18px;
+    margin: 10px auto;
+    padding: 7px 20px;
+}
+
+select {
+	width: 150px;
+	height: 40px;
+	font-size: 20px;
+    margin: 10px auto;
+    padding: 5px 20px;
+}
+
+input:focus, button:focus, select:focus {
+    outline: none;
+    border-color: brown;
+}
+
+button {
+	width: 300px;
+	height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: brown;
+    color: white;
+
+}
+
+button:hover, button:hover { 
+    background-color: lightgoldenrodyellow;
+    color: brown;
+
+}
+
+#exchange-rate {
+    background-color:lightgray;
+    display: none;
+}
+
+#span-exchange {
+    display: none;
+}
