@@ -32,7 +32,7 @@ btnExchange.addEventListener("click", async function() {
             const exchangeRate = await getExchangeRate(originalCurrency, newCurrencyUnit);
             document.getElementById("exchange-rate").value = exchangeRate.toFixed(4);
             const val =  (exchangeRate * originalCurrencyAmount).toFixed(4);
-            outputText.textContent = `Your ${originalCurrencyAmount} ${originalCurrency} will currently buy you ${val} ${newCurrencyUnit}` 
+            outputText.textContent = `${originalCurrencyAmount} ${originalCurrency} = ${val} ${newCurrencyUnit}` 
            
         }
     else {
