@@ -1,16 +1,33 @@
+let currencyAmtSelector = document.getElementById("original-currency-amount");
+let originalCurrencySelector =  document.getElementById("original-currency-unit");
+let newCurrencyUnitSelector = document.getElementById("new-currency-unit");
+let exchangeRateSelector = document.getElementById("exchange-rate");
 let btnExchange = document.getElementById("btn-exchange");
 let outputText = document.getElementById("output-text");
 let spanExchange = document.getElementById("span-exchange");
-let originalCurrencyAmount, originalCurrency, exchangeRate;
+let originalCurrencyAmount, originalCurrencyUnit;
+let options, exchangeRates;
 
-// Get exchange rate by passing source and target currency units
-const getExchangeRate = async (from, to) => {
-    let req_url = `https://api.exchangeratesapi.io/latest?base=${from}&symbols=${to}`;
-    let res = await fetch(req_url);
-    let data = await res.json();
-    console.log('Data', data);
-    return data.rates[to];
-};
+const select = document.querySelectorAll('select')
+
+async function getExchangeRate(){
+
+    let response = await fetch ('https://api.exchangeratesapi.io/latest?base=USD')
+    let data = await response.json()
+    const currencyUnits = Object.keys(data.rates)
+    const rates = data.rates 
+
+    currencyUnits.map((currency) => {
+        options += `<option value=${currency}>${currency}</option>`;
+    })
+
+    originalCurrencySelector.innerHTML = options;
+    newCurrencyUnitSelector.innerHTML = options;
+
+    exchangeRates = rates;
+}
+
+getExchangeRate();
 
 const styleOutputText = () => {
     outputText.style.fontWeight = "bold";
@@ -20,28 +37,32 @@ const styleOutputText = () => {
     document.getElementById("exchange-rate").style.display = "inline";
 }
 
-//Event Listeners 
-btnExchange.addEventListener("click", async function() {
-    originalCurrencyAmount = document.getElementById("original-currency-amount").value;
-    originalCurrency = document.getElementById("original-currency-unit").value;
-    newCurrencyUnit = document.getElementById("new-currency-unit").value;
-    
-    if(originalCurrencyAmount) 
+async function currencyConversion() {
+    originalCurrencyAmount = currencyAmtSelector.value;
+    originalCurrencyUnit = originalCurrencySelector.value;
+    newCurrencyUnit = newCurrencyUnitSelector.value;
+
+    if(!originalCurrencyAmount) {
+        outputText.style.color = "red";
+        outputText.textContent = `Please enter the currency value to convert.` 
+    }
+    else 
         {
             styleOutputText();
-            const exchangeRate = await getExchangeRate(originalCurrency, newCurrencyUnit);
-            document.getElementById("exchange-rate").value = exchangeRate.toFixed(4);
-            const val =  (exchangeRate * originalCurrencyAmount).toFixed(4);
-            outputText.textContent = `${originalCurrencyAmount} ${originalCurrency} = ${val} ${newCurrencyUnit}` 
+            const rate1 = exchangeRates[originalCurrencyUnit];
+            const rate2 = exchangeRates[newCurrencyUnit];
+            exchangeRate = (rate2/rate1).toFixed(4);
+            totalAmt = (originalCurrencyAmount * exchangeRate).toFixed(4)
+            exchangeRateSelector.value = (rate2/rate1).toFixed(4);
+            outputText.textContent = `${originalCurrencyAmount} ${originalCurrencyUnit} = ${totalAmt} ${newCurrencyUnit}` 
            
         }
-    else {
-            outputText.style.color = "red";
-            outputText.textContent = `Please enter the currency value to convert.` 
-    }
+}
 
-   
-})
+//Event Listeners 
+btnExchange.addEventListener("click", currencyConversion);
+
+
 
 
 

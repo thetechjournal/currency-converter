@@ -28,15 +28,15 @@ input, select {
 input {
 	width: 100px;
 	height: 21px;
-	font-size: 18px;
+	font-size: 16px;
     margin: 10px auto;
     padding: 7px 20px;
 }
 
 select {
-	width: 150px;
+	width: 180px;
 	height: 40px;
-	font-size: 20px;
+	font-size: 16px;
     margin: 10px auto;
     padding: 5px 20px;
 }
